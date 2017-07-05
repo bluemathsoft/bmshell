@@ -4,50 +4,75 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
   <title>BlueMath Shell</title>
+	<style>
+		#container {
+			height : 800px;
+			min-width: 100px;
+		}
+
+		#container > #editor {
+			width : 600px;
+			height : 600px;
+			border:1px solid grey;
+			float : left;
+		}
+		#container > #runtime {
+			width : 400px;
+			height : 600px;
+			margin-left : 600px;
+			background : #eee;
+		}
+		#container > #runtime > iframe {
+			width : 95%;
+			height : 80%;
+			border: 0px;
+		}
+	</style>
 </head>
 
 <body>
 <script src="./ext/monaco-editor/min/vs/loader.js"></script>
 
-<table>
-	<tr>
-		<td>
-			<div id="container" style="width:600px;height:600px;border:1px solid grey"></div>
-		</td>
-		<td>
-			<iframe src="runtime.html" width="400" height="600" style="margin-left:0px;border:1px solid grey">
-			</iframe>
-		</td>
-	</tr>
-</table>
+	<div id="container">
+		<div id="editor"></div>
+		<div id="runtime"></div>
+	</div>
+	<br/>
+	<input type="button" name="run" value="Run"></input>
 
-
-<br/>
-<input type="button" name="run" value="Run"></input>
-
-
-<script>
-  var editor;
-	require.config({ paths: { 'vs': './ext/monaco-editor/min/vs' }});
-	require(['vs/editor/editor.main'], function() {
-		editor = monaco.editor.create(document.getElementById('container'), {
-			value: [
-				'function x() {',
-				'\tconsole.log("Hello world!");',
-				'}'
-			].join('\n'),
-			language: 'javascript'
+	<script>
+		var editor;
+		let containerElem = document.getElementById('container');
+		let editorElem = document.getElementById('editor');
+		let runtimeElem = document.getElementById('runtime');
+		// Setup Monaco editor
+		require.config({ paths: { 'vs': './ext/monaco-editor/min/vs' }});
+		require(['vs/editor/editor.main'], function() {
+			editor = monaco.editor.create(editorElem, {
+				value: [
+					'console.log(bluemath.EPSILON);',
+				].join('\n'),
+				language: 'javascript'
+			});
 		});
-	});
 
-  var runbutton = document.querySelector('input[name="run"]');
-  runbutton.onclick = () => {
-    let ifrm = document.querySelector('iframe');
-    let codestring = editor.getModel().getValue();
-    ifrm.contentWindow.eval(codestring);
-    //ifrm.contentWindow.postMessage(codestring,'*');
-  }
+		// Recreate the runtime iframe and execute the code each time 'Run'
+		// is clicked
+		var runbutton = document.querySelector('input[name="run"]');
+		runbutton.onclick = () => {
+			let codestring = editor.getModel().getValue();
+			let ifrm = runtimeElem.querySelector('iframe');
+			if(ifrm) {
+				ifrm.remove();
+			}
+			ifrm = document.createElement('iframe');
+			ifrm.setAttribute('src', './runtime.html');
+			runtimeElem.appendChild(ifrm);
+			ifrm.contentWindow.onload = () => {
+				ifrm.contentWindow.eval(codestring);
+			}
+		}
+	</script>
 
-</script>
 </body>
 </html>
