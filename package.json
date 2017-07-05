@@ -4,7 +4,7 @@
   "description": "BlueMath Shell",
   "main": "index.js",
   "scripts": {
-    "start": "http-server",
+    "start": "http-server -p8088 -c-1",
     "build-runtime": "webpack --config webpack.config.js",
     "deploy-shell": "cp -r index.html runtime.html build/ ext/ ../bluemathsoft.github.io/shell/"
   },
@@ -17,6 +17,7 @@
     "awesome-typescript-loader": "^3.2.1",
     "http-server": "^0.10.0",
     "source-map-loader": "^0.2.1",
+    "typescript": "^2.4.1",
     "webpack": "^3.0.0"
   },
   "false": {}

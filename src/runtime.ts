@@ -9,5 +9,16 @@ import * as bluemath from 'bluemath'
     let el = document.createElement('p');
     el.textContent = msg;
     document.body.appendChild(el);
+  },
+  error : function(...args:any[]) {
+    let msg:string = args.map(a => new String(a)).join('');
+    let el = document.createElement('p');
+    el.textContent = msg;
+    document.body.appendChild(el);
+  },
+  assert : function(condition) {
+    if(!condition) {
+      throw new Error("Assertion failed");
+    }
   }
 };

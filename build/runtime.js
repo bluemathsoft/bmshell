@@ -1265,6 +1265,21 @@ window.console = {
         var el = document.createElement('p');
         el.textContent = msg;
         document.body.appendChild(el);
+    },
+    error: function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var msg = args.map(function (a) { return new String(a); }).join('');
+        var el = document.createElement('p');
+        el.textContent = msg;
+        document.body.appendChild(el);
+    },
+    assert: function (condition) {
+        if (!condition) {
+            throw new Error("Assertion failed");
+        }
     }
 };
 

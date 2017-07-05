@@ -78,6 +78,7 @@
 </head>
 
 <body>
+<script src="./src/examples.js"></script>
 <script src="./ext/monaco-editor/min/vs/loader.js"></script>
 
 	<div id="container">
@@ -88,6 +89,7 @@
 	<div id="btn-panel">
 		<div class="btn" id="btn-run">Run</div>
 		<div class="btn" id="btn-docs">Docs</div>
+		<select id="examples-choices"></select>
 	</div>
 	<div id="docholder">
 		<div id="docsclose">✖</div>
@@ -102,6 +104,8 @@
 		let runtimeElem = document.getElementById('runtime');
 		let docholderElem = document.getElementById('docholder');
 		let docsCloseElem = document.getElementById('docsclose');
+		let exmChoices = document.getElementById('examples-choices');
+
 		// Setup Monaco editor
 		require.config({ paths: { 'vs': './ext/monaco-editor/min/vs' }});
 		require(['vs/editor/editor.main'], function() {
@@ -116,6 +120,17 @@
 				}
 			});
 		});
+
+		// Setup example choices
+		for(let key in BMSHELL_EXAMPLES) {
+			let opt = document.createElement('option');
+			opt.textContent = key;
+			exmChoices.appendChild(opt);
+		}
+		exmChoices.onchange = () => {
+			let exmCode = BMSHELL_EXAMPLES[exmChoices.value];
+			editor.getModel().setValue(exmCode);
+		}
 
 		// Recreate the runtime iframe and execute the code each time 'Run'
 		// is clicked
