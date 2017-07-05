@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "http-server",
-    "build-runtime" : "webpack --config webpack.config.js"
+    "build-runtime" : "webpack --config webpack.config.js",
+    "deploy-shell" : "cp -r index.html runtime.html build/ ext/ ../bluemathsoft.github.io/shell/"
   },
   "author": "Jayesh Salvi",
   "license": "AGPL-3.0",
