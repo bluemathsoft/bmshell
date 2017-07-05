@@ -9,7 +9,6 @@
 			overflow:hidden;
 		}
 		#container {
-			height : 800px;
 			min-width: 100px;
 		}
 
@@ -37,15 +36,43 @@
 			width : 0px;
 		}
 		#docholder > #docsclose {
-			width : 50px;
+			width : 20px;
 			height : 20px;
 			top : 0px;
 			right : 0px;
 			position : absolute;
-			background : #efefef;
+			background : #000;
+			color: #4cabff;
 			padding : 2px;
 			margin : 6px;
 			cursor : pointer;
+			-webkit-border-radius: 6;
+			-moz-border-radius: 6;
+			border-radius: 6px;
+			text-align: center;
+		}
+		.btn {
+			-webkit-border-radius: 6;
+			-moz-border-radius: 6;
+			border-radius: 6px;
+			font-family: Georgia;
+			color: #4cabff;
+			font-size: 20px;
+			background: #000000;
+			padding: 10px 20px 10px 20px;
+			margin : 10px;
+			text-decoration: none;
+			cursor : pointer;
+		}
+
+		.btn:hover {
+			background: #444;
+			text-decoration: none;
+		}
+
+		#btn-panel {
+			display : flex;
+			justify-content: initial;
 		}
 	</style>
 </head>
@@ -58,10 +85,12 @@
 		<div id="runtime"></div>
 	</div>
 	<br/>
-	<input type="button" name="run" value="Run"></input>
-	<input type="button" name="docs" value="Docs"></input>
+	<div id="btn-panel">
+		<div class="btn" id="btn-run">Run</div>
+		<div class="btn" id="btn-docs">Docs</div>
+	</div>
 	<div id="docholder">
-		<div id="docsclose">Close</div>
+		<div id="docsclose">✖</div>
 	</div>
 
 	<script>
@@ -90,7 +119,7 @@
 
 		// Recreate the runtime iframe and execute the code each time 'Run'
 		// is clicked
-		var runbutton = document.querySelector('input[name="run"]');
+		var runbutton = document.querySelector('#btn-run');
 		runbutton.onclick = () => {
 			let codestring = editor.getModel().getValue();
 			let ifrm = runtimeElem.querySelector('iframe');
@@ -105,7 +134,7 @@
 			}
 		};
 
-		let docsButton = document.querySelector('input[name="docs"]');
+		let docsButton = document.querySelector('#btn-docs');
 		docsButton.onclick = () => {
 			let ifrm = document.createElement('iframe');
 			ifrm.setAttribute('src', 'http://www.bluemathsoftware.com/docs/index.html');
@@ -125,6 +154,7 @@
 		}
 
 		containerElem.style.width = W+'px';
+		containerElem.style.height = Math.round(0.8*H)+'px';
 		editorElem.style.width = Math.round(0.6*W)+'px';
 		runtimeElem.style.width = Math.round(0.4*W)+'px';
 		runtimeElem.style.marginLeft = Math.round(0.6*W)+'px';
