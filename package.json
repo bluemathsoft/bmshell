@@ -1,0 +1,22 @@
+{
+  "name": "bmshell",
+  "version": "0.0.1",
+  "description": "BlueMath Shell",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server",
+    "build-runtime" : "webpack --config webpack.config.js"
+  },
+  "author": "Jayesh Salvi",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "bluemath": "^0.2.9"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.1",
+    "http-server": "^0.10.0",
+    "source-map-loader": "^0.2.1",
+    "webpack": "^3.0.0"
+  },
+  "false": {}
+}
