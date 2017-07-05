@@ -5,6 +5,9 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
   <title>BlueMath Shell</title>
 	<style>
+		body {
+			overflow:hidden;
+		}
 		#container {
 			height : 800px;
 			min-width: 100px;
@@ -12,20 +15,37 @@
 
 		#container > #editor {
 			width : 600px;
-			height : 600px;
-			border:1px solid grey;
+			height : 100%;
+			border: 0px;
 			float : left;
 		}
 		#container > #runtime {
 			width : 400px;
-			height : 600px;
+			height : 100%;
 			margin-left : 600px;
-			background : #eee;
+			background : #f8f8f8;
 		}
 		#container > #runtime > iframe {
 			width : 95%;
 			height : 80%;
 			border: 0px;
+		}
+		#docholder {
+			position : absolute;
+			top : 0px;
+			height : 0px;
+			width : 0px;
+		}
+		#docholder > #docsclose {
+			width : 50px;
+			height : 20px;
+			top : 0px;
+			right : 0px;
+			position : absolute;
+			background : #efefef;
+			padding : 2px;
+			margin : 6px;
+			cursor : pointer;
 		}
 	</style>
 </head>
@@ -39,12 +59,20 @@
 	</div>
 	<br/>
 	<input type="button" name="run" value="Run"></input>
+	<input type="button" name="docs" value="Docs"></input>
+	<div id="docholder">
+		<div id="docsclose">Close</div>
+	</div>
 
 	<script>
+		let W = window.innerWidth-10;
+		let H = window.innerHeight-10;
 		var editor;
 		let containerElem = document.getElementById('container');
 		let editorElem = document.getElementById('editor');
 		let runtimeElem = document.getElementById('runtime');
+		let docholderElem = document.getElementById('docholder');
+		let docsCloseElem = document.getElementById('docsclose');
 		// Setup Monaco editor
 		require.config({ paths: { 'vs': './ext/monaco-editor/min/vs' }});
 		require(['vs/editor/editor.main'], function() {
@@ -52,7 +80,11 @@
 				value: [
 					'console.log(bluemath.EPSILON);',
 				].join('\n'),
-				language: 'javascript'
+				language: 'javascript',
+				lineNumbers : false,
+				minimap : {
+					enabled : false
+				}
 			});
 		});
 
@@ -71,7 +103,31 @@
 			ifrm.contentWindow.onload = () => {
 				ifrm.contentWindow.eval(codestring);
 			}
+		};
+
+		let docsButton = document.querySelector('input[name="docs"]');
+		docsButton.onclick = () => {
+			let ifrm = document.createElement('iframe');
+			ifrm.setAttribute('src', 'http://www.bluemathsoftware.com/docs/index.html');
+			ifrm.style.height = '100%';
+			ifrm.style.width = '100%';
+			docholderElem.insertBefore(ifrm,docsCloseElem);
+
+			docholderElem.style.left = Math.round(0.2*W)+'px';
+			docholderElem.style.width = Math.round(0.8*W)+'px';
+			docholderElem.style.height = H+'px';
+		};
+
+		docsCloseElem.onclick = () => {
+			let ifrm = docholderElem.querySelector('iframe');
+			ifrm.remove();
+			docholderElem.style.left = (W+20)+'px';
 		}
+
+		containerElem.style.width = W+'px';
+		editorElem.style.width = Math.round(0.6*W)+'px';
+		runtimeElem.style.width = Math.round(0.4*W)+'px';
+		runtimeElem.style.marginLeft = Math.round(0.6*W)+'px';
 	</script>
 
 </body>
