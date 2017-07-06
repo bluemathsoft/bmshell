@@ -1292,6 +1292,20 @@ window.console = {
         }
     }
 };
+window.bmlog = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    var s = '';
+    for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
+        var arg = args_1[_a];
+        s += arg.toString().replace(/\n/g, '<br/>').replace(/\s/g, '&nbsp;');
+    }
+    var el = document.createElement('p');
+    el.innerHTML = s;
+    document.body.appendChild(el);
+};
 
 
 /***/ }),

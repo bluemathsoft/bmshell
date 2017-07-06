@@ -22,3 +22,13 @@ import * as bluemath from 'bluemath'
     }
   }
 };
+
+(<any>window).bmlog = function (...args:any[]) {
+  let s = '';
+  for(let arg of args) {
+    s += arg.toString().replace(/\n/g,'<br/>').replace(/\s/g,'&nbsp;');
+  }
+  let el = document.createElement('p');
+  el.innerHTML = s;
+  document.body.appendChild(el);
+};

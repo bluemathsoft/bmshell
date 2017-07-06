@@ -1,12 +1,12 @@
 
 const simple =
 `
-console.log('BlueMath version',bluemath.version);
+console.log('BlueMath version:',bluemath.version);
 let A = new bluemath.NDArray([
   [2,0],
   [5,1]
 ]);
-console.log('A',A.toString());
+bmlog('A',A.toString());
 `;
 
 const identity_and_multiplication =
@@ -14,13 +14,13 @@ const identity_and_multiplication =
 const bm = bluemath;
 
 let A = bm.eye(3,'i32');
-console.log('Identity',A);
+bmlog('Identity',A);
 let B = bm.mul(A,5);
 let C = bm.mul(A,2);
-console.log('B',B);
-console.log('C',C);
+bmlog('B',B);
+bmlog('C',C);
 let D = bm.mul(B,C);
-console.log('B*C',D);
+bmlog('B*C',D);
 `;
 
 const determinant = 
@@ -33,7 +33,8 @@ let A = new NDArray([
     [1,3,5]
 ]);
 
-console.log('Determinant = ',linalg.det(A));
+bmlog('A',A);
+bmlog('Determinant = ',linalg.det(A));
 `;
 
 let BMSHELL_EXAMPLES = {
