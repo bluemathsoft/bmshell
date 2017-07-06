@@ -6,7 +6,7 @@
   "scripts": {
     "start": "http-server -p8088 -c-1",
     "build-runtime": "webpack --config webpack.config.js",
-    "deploy-shell": "cp -r index.html runtime.html build/ ext/ ../bluemathsoft.github.io/shell/"
+    "deploy-shell": "cp -r index.html runtime.html build/ ext/ src/ fonts/ ../bluemathsoft.github.io/shell/"
   },
   "author": "Jayesh Salvi",
   "license": "AGPL-3.0",
