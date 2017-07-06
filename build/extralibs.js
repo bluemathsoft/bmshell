@@ -2,8 +2,8 @@
 window.EXTRA_LIBS = [
 
 {
-  source : `import Matrix from './matrix';
-import { TypedArray } from '..';
+  source : `
+
 /**
  * @hidden
  */
@@ -14,11 +14,11 @@ interface BandMatrixDef {
     upperbandwidth: number;
     data: TypedArray;
 }
-export { BandMatrixDef };
+declare { BandMatrixDef };
 /**
  * @hidden
  */
-export default class BandMatrix extends Matrix {
+declare class BandMatrix extends Matrix {
     private _def;
     constructor(def: BandMatrixDef);
     /**
@@ -51,7 +51,7 @@ export default class BandMatrix extends Matrix {
 }
 ,
 {
-  source : `export default class Complex {
+  source : `declare class Complex {
     real: number;
     imag: number;
     constructor(real?: number, imag?: number);
@@ -64,26 +64,26 @@ export default class BandMatrix extends Matrix {
 }
 ,
 {
-  source : `import Matrix from './matrix';
-import BandMatrix from './bmatrix';
-import Vector from './vector';
-import Vector2 from './vector2';
-import Vector3 from './vector3';
-import PermutationVector from './pvector';
-import NDArray from './ndarray';
-import Complex from './complex';
-export { NDArray, Matrix, Vector, Vector2, Vector3, Complex, PermutationVector, BandMatrix };
+  source : `
+
+
+
+
+
+
+
+declare { NDArray, Matrix, Vector, Vector2, Vector3, Complex, PermutationVector, BandMatrix };
 `,
   fpath : "bluemath/lib/basic/index.d.ts"
 }
 ,
 {
-  source : `import { TypedArray, NumberType } from '..';
-import Vector from './vector';
+  source : `
+
 /**
  * @hidden
  */
-export default class Matrix {
+declare class Matrix {
     private _data;
     private datatype;
     private _rows;
@@ -137,9 +137,9 @@ export default class Matrix {
 }
 ,
 {
-  source : `import { NumberType, TypedArray } from '..';
-import Complex from './complex';
-export interface NDArrayOptions {
+  source : `
+
+declare interface NDArrayOptions {
     shape?: number[];
     datatype?: NumberType;
     fill?: number;
@@ -193,7 +193,7 @@ export interface NDArrayOptions {
  *
  * [[div]]
  */
-export default class NDArray {
+declare class NDArray {
     /**
      * Array of array dimensions. First being the outermost dimension.
      */
@@ -341,13 +341,13 @@ export default class NDArray {
 }
 ,
 {
-  source : `import { NumberType } from '..';
-import Vector from './vector';
-import Matrix from './matrix';
+  source : `
+
+
 /**
  * @hidden
  */
-export default class PermutationVector extends Vector {
+declare class PermutationVector extends Vector {
     constructor(arg0: number[] | number, datatype?: NumberType);
     toMatrix(): Matrix;
 }
@@ -356,11 +356,11 @@ export default class PermutationVector extends Vector {
 }
 ,
 {
-  source : `import { NumberType, TypedArray } from '..';
+  source : `
 /**
  * @hidden
  */
-export default class Vector {
+declare class Vector {
     protected _data: TypedArray | number[];
     datatype: NumberType;
     constructor(data: TypedArray | number[] | number, datatype?: NumberType);
@@ -451,11 +451,11 @@ export default class Vector {
 }
 ,
 {
-  source : `import Vector from './vector';
+  source : `
 /**
  * @hidden
  */
-export default class Vector2 extends Vector {
+declare class Vector2 extends Vector {
     constructor(x?: number, y?: number);
     x: number;
     y: number;
@@ -473,11 +473,11 @@ export default class Vector2 extends Vector {
 }
 ,
 {
-  source : `import Vector from './vector';
+  source : `
 /**
  * @hidden
  */
-export default class Vector3 extends Vector {
+declare class Vector3 extends Vector {
     x: number;
     y: number;
     z: number;
@@ -489,20 +489,20 @@ export default class Vector3 extends Vector {
 ,
 {
   source : `declare const EPSILON = 0.000001;
-export { EPSILON };
+declare { EPSILON };
 `,
   fpath : "bluemath/lib/constants.d.ts"
 }
 ,
 {
-  source : `import * as nurbs from './nurbs';
-export { nurbs };
+  source : `
+declare { nurbs };
 `,
   fpath : "bluemath/lib/geom/index.d.ts"
 }
 ,
 {
-  source : `import { Vector, Vector2, Vector3 } from '../../basic';
+  source : `
 /**
  * @hidden
  */
@@ -538,7 +538,7 @@ declare class BSplineCurve3D extends BSplineCurve {
     constructor(degree: number, cpoints: Array<Vector3>, knots: Array<number>, weights?: Array<number>);
     evaluate(t: number): Vector3;
 }
-export { BSplineCurve, BSplineCurve2D, BSplineCurve3D };
+declare { BSplineCurve, BSplineCurve2D, BSplineCurve3D };
 `,
   fpath : "bluemath/lib/geom/nurbs/bcurve.d.ts"
 }
@@ -581,54 +581,54 @@ declare function getBasisFunction(p: number, U: Array<number>, i: number, u: num
  *            basic function N(i-p+j,p), where 0<=k<=n and 0<=j<=p
  */
 declare function getBasisFunctionDerivatives(p: number, u: number, i: number, U: Array<number>, n: number): Array<Array<number>>;
-export { bernstein, findSpan, getBasisFunction, getBasisFunctionDerivatives };
+declare { bernstein, findSpan, getBasisFunction, getBasisFunctionDerivatives };
 `,
   fpath : "bluemath/lib/geom/nurbs/helper.d.ts"
 }
 ,
 {
-  source : `import { BSplineCurve, BSplineCurve2D, BSplineCurve3D } from './bcurve';
-export { BSplineCurve, BSplineCurve2D, BSplineCurve3D };
+  source : `
+declare { BSplineCurve, BSplineCurve2D, BSplineCurve3D };
 `,
   fpath : "bluemath/lib/geom/nurbs/index.d.ts"
 }
 ,
 {
-  source : `import { eye, zeros, iszero, isequal, torad, todeg, add, mul, sub, div } from './ops';
-import * as linalg from './linalg';
-import { EPSILON } from './constants';
-import { NDArray, Matrix, Vector, Vector2, Vector3, Complex, PermutationVector, BandMatrix } from './basic';
-export declare type NumberType = 'i8' | 'ui8' | 'i16' | 'ui16' | 'i32' | 'ui32' | 'f32' | 'f64';
-export declare type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
-export { linalg, EPSILON, NDArray, Matrix, Vector, Vector2, Vector3, Complex, PermutationVector, BandMatrix, eye, zeros, iszero, isequal, torad, todeg, add, mul, sub, div };
+  source : `
+
+
+
+declare declare type NumberType = 'i8' | 'ui8' | 'i16' | 'ui16' | 'i32' | 'ui32' | 'f32' | 'f64';
+declare declare type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array;
+declare { linalg, EPSILON, NDArray, Matrix, Vector, Vector2, Vector3, Complex, PermutationVector, BandMatrix, eye, zeros, iszero, isequal, torad, todeg, add, mul, sub, div };
 `,
   fpath : "bluemath/lib/index.d.ts"
 }
 ,
 {
-  source : `import { asum, axpy } from './l1';
-export { asum, axpy };
+  source : `
+declare { asum, axpy };
 `,
   fpath : "bluemath/lib/linalg/blas/index.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function asum(X: TypedArray): number;
+declare declare function asum(X: TypedArray): number;
 /**
  * @hidden
  */
-export declare function axpy(X: TypedArray, a: number, Y: TypedArray): void;
+declare declare function axpy(X: TypedArray, a: number, Y: TypedArray): void;
 `,
   fpath : "bluemath/lib/linalg/blas/l1.d.ts"
 }
 ,
 {
-  source : `import { NumberType } from '../';
-import NDArray from '../basic/ndarray';
+  source : `
+
 /**
  * Creates m-by-n Identity matrix
  *
@@ -639,7 +639,7 @@ import NDArray from '../basic/ndarray';
  * eye(2,'i32') // Creates 2x2 Identity matrix of 32-bit integers
  * \`\`\`
  */
-export declare function eye(arg0: number | number[], datatype?: NumberType): NDArray;
+declare declare function eye(arg0: number | number[], datatype?: NumberType): NDArray;
 /**
  * Creates NDArray filled with zeros
  *
@@ -649,269 +649,269 @@ export declare function eye(arg0: number | number[], datatype?: NumberType): NDA
  * zeros(2,'i16') // Creates 2x2 matrix of 16-bit integers filled with zeros
  * \`\`\`
  */
-export declare function zeros(arg0: number | number[], datatype?: NumberType): NDArray;
+declare declare function zeros(arg0: number | number[], datatype?: NumberType): NDArray;
 `,
   fpath : "bluemath/lib/linalg/construction.d.ts"
 }
 ,
 {
-  source : `import { matmul, norm, solve, cholesky, inner, outer, svd, rank, lstsq, lu_custom, slogdet, det, inv, qr, triu, tril, eig } from './operations';
-import * as lapack from './lapack';
-export { inner, outer, matmul, triu, tril, cholesky, svd, norm, solve, rank, lstsq, lu_custom, slogdet, det, inv, qr, eig, lapack };
+  source : `
+
+declare { inner, outer, matmul, triu, tril, cholesky, svd, norm, solve, rank, lstsq, lu_custom, slogdet, det, inv, qr, eig, lapack };
 `,
   fpath : "bluemath/lib/linalg/index.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../../..';
+  source : `
 /**
  * @hidden
  */
-export declare function dot(vx: TypedArray, vy: TypedArray): any;
+declare declare function dot(vx: TypedArray, vy: TypedArray): any;
 `,
   fpath : "bluemath/lib/linalg/lapack/blasl1/dot.d.ts"
 }
 ,
 {
-  source : `export declare function asum(): void;
-export declare function dot(): any;
+  source : `declare declare function asum(): void;
+declare declare function dot(): any;
 `,
   fpath : "bluemath/lib/linalg/lapack/blasl1.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../../..';
+  source : `
 /**
  * @hidden
  */
-export declare function gemv(alpha: number, mA: TypedArray, m: number, n: number, vx: TypedArray, vy: TypedArray, beta: number): void;
+declare declare function gemv(alpha: number, mA: TypedArray, m: number, n: number, vx: TypedArray, vy: TypedArray, beta: number): void;
 `,
   fpath : "bluemath/lib/linalg/lapack/blasl2/gemv.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../../..';
+  source : `
 /**
  * @hidden
  */
-export declare function gemm(mA: TypedArray, mB: TypedArray, mC: TypedArray, m: number, n: number, k: number, alpha: number, beta: number): void;
+declare declare function gemm(mA: TypedArray, mB: TypedArray, mC: TypedArray, m: number, n: number, k: number, alpha: number, beta: number): void;
 `,
   fpath : "bluemath/lib/linalg/lapack/blasl3/gemm.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare const SIZE_CHAR = 1;
+declare declare const SIZE_CHAR = 1;
 /**
  * @hidden
  */
-export declare const SIZE_INT = 4;
+declare declare const SIZE_INT = 4;
 /**
  * @hidden
  */
-export declare const SIZE_DOUBLE = 8;
+declare declare const SIZE_DOUBLE = 8;
 /**
  * @hidden
  */
-export declare const SIZE_SINGLE = 4;
+declare declare const SIZE_SINGLE = 4;
 /**
  * @hidden
  */
-export declare const spotrf_wrap: any;
+declare declare const spotrf_wrap: any;
 /**
  * @hidden
  */
-export declare const dpotrf_wrap: any;
+declare declare const dpotrf_wrap: any;
 /**
  * @hidden
  */
-export declare const sgesv_wrap: any;
+declare declare const sgesv_wrap: any;
 /**
  * @hidden
  */
-export declare const dgesv_wrap: any;
+declare declare const dgesv_wrap: any;
 /**
  * @hidden
  */
-export declare const sgemm_wrap: any;
+declare declare const sgemm_wrap: any;
 /**
  * @hidden
  */
-export declare const dgemm_wrap: any;
+declare declare const dgemm_wrap: any;
 /**
  * @hidden
  */
-export declare const dgemv_wrap: any;
+declare declare const dgemv_wrap: any;
 /**
  * @hidden
  */
-export declare const sgemv_wrap: any;
+declare declare const sgemv_wrap: any;
 /**
  * @hidden
  */
-export declare const sdot_wrap: any;
+declare declare const sdot_wrap: any;
 /**
  * @hidden
  */
-export declare const ddot_wrap: any;
+declare declare const ddot_wrap: any;
 /**
  * @hidden
  */
-export declare const dgesdd_wrap: any;
+declare declare const dgesdd_wrap: any;
 /**
  * @hidden
  */
-export declare const sgesdd_wrap: any;
+declare declare const sgesdd_wrap: any;
 /**
  * @hidden
  */
-export declare const sgeqrf_wrap: any;
+declare declare const sgeqrf_wrap: any;
 /**
  * @hidden
  */
-export declare const dgeqrf_wrap: any;
+declare declare const dgeqrf_wrap: any;
 /**
  * @hidden
  */
-export declare const sorgqr_wrap: any;
+declare declare const sorgqr_wrap: any;
 /**
  * @hidden
  */
-export declare const dorgqr_wrap: any;
+declare declare const dorgqr_wrap: any;
 /**
  * @hidden
  */
-export declare const dgelsd_wrap: any;
+declare declare const dgelsd_wrap: any;
 /**
  * @hidden
  */
-export declare const sgetrf_wrap: any;
+declare declare const sgetrf_wrap: any;
 /**
  * @hidden
  */
-export declare const dgetrf_wrap: any;
+declare declare const dgetrf_wrap: any;
 /**
  * @hidden
  */
-export declare const sgeev_wrap: any;
+declare declare const sgeev_wrap: any;
 /**
  * @hidden
  */
-export declare const dgeev_wrap: any;
+declare declare const dgeev_wrap: any;
 /**
  * @hidden
  */
-export declare function defineEmVariable(type: 'i8' | 'i32' | 'f32' | 'f64', init?: number): number;
+declare declare function defineEmVariable(type: 'i8' | 'i32' | 'f32' | 'f64', init?: number): number;
 /**
  * @hidden
  */
-export declare function defineEmArrayVariable(type: 'i8' | 'i32' | 'f32' | 'f64', len: number, init?: TypedArray): [number, TypedArray];
+declare declare function defineEmArrayVariable(type: 'i8' | 'i32' | 'f32' | 'f64', len: number, init?: TypedArray): [number, TypedArray];
 `,
   fpath : "bluemath/lib/linalg/lapack/common.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function geev(A: TypedArray, n: number, compleft: boolean, compright: boolean): Int8Array[];
+declare declare function geev(A: TypedArray, n: number, compleft: boolean, compright: boolean): Int8Array[];
 `,
   fpath : "bluemath/lib/linalg/lapack/geev.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function gelsd(mA: TypedArray, m: number, n: number, nrhs: number, rcond: number, mB: TypedArray, mS: TypedArray): number;
+declare declare function gelsd(mA: TypedArray, m: number, n: number, nrhs: number, rcond: number, mB: TypedArray, mS: TypedArray): number;
 `,
   fpath : "bluemath/lib/linalg/lapack/gelsd.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function geqrf(mA: TypedArray, m: number, n: number, mTau: TypedArray): void;
+declare declare function geqrf(mA: TypedArray, m: number, n: number, mTau: TypedArray): void;
 `,
   fpath : "bluemath/lib/linalg/lapack/geqrf.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function gesdd(mA: TypedArray, m: number, n: number, mU: TypedArray, mS: TypedArray, mVT: TypedArray, job: 'A' | 'N' | 'S'): void;
+declare declare function gesdd(mA: TypedArray, m: number, n: number, mU: TypedArray, mS: TypedArray, mVT: TypedArray, job: 'A' | 'N' | 'S'): void;
 `,
   fpath : "bluemath/lib/linalg/lapack/gesdd.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function gesv(mA: TypedArray, mB: TypedArray, n: number, nrhs: number): TypedArray;
+declare declare function gesv(mA: TypedArray, mB: TypedArray, n: number, nrhs: number): TypedArray;
 `,
   fpath : "bluemath/lib/linalg/lapack/gesv.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function getrf(mA: TypedArray, m: number, n: number, mipiv: TypedArray): void;
+declare declare function getrf(mA: TypedArray, m: number, n: number, mipiv: TypedArray): void;
 `,
   fpath : "bluemath/lib/linalg/lapack/getrf.d.ts"
 }
 ,
 {
-  source : `import { dot } from './blasl1/dot';
-import { gemv } from './blasl2/gemv';
-import { gemm } from './blasl3/gemm';
-import { gesv } from './gesv';
-import { gesdd } from './gesdd';
-import { gelsd } from './gelsd';
-import { getrf } from './getrf';
-import { geev } from './geev';
-import { geqrf } from './geqrf';
-import { orgqr } from './orgqr';
-import { potrf } from './potrf';
-export { dot, gemv, gemm, gesv, geev, gesdd, gelsd, getrf, geqrf, orgqr, potrf };
+  source : `
+
+
+
+
+
+
+
+
+
+
+declare { dot, gemv, gemm, gesv, geev, gesdd, gelsd, getrf, geqrf, orgqr, potrf };
 `,
   fpath : "bluemath/lib/linalg/lapack/index.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function orgqr(mA: TypedArray, m: number, n: number, k: number, mtau: TypedArray): void;
+declare declare function orgqr(mA: TypedArray, m: number, n: number, k: number, mtau: TypedArray): void;
 `,
   fpath : "bluemath/lib/linalg/lapack/orgqr.d.ts"
 }
 ,
 {
-  source : `import { TypedArray } from '../..';
+  source : `
 /**
  * @hidden
  */
-export declare function potrf(mA: TypedArray, n: number): void;
+declare declare function potrf(mA: TypedArray, n: number): void;
 `,
   fpath : "bluemath/lib/linalg/lapack/potrf.d.ts"
 }
 ,
 {
-  source : `import { NDArray } from '..';
+  source : `
 /**
  * Matrix multiplication
  *
@@ -919,7 +919,7 @@ export declare function potrf(mA: TypedArray, n: number): void;
  * The other argument could be a 1D vector. It will be implicitly used
  * as 1xn matrix
  */
-export declare function matmul(A: NDArray, B: NDArray): NDArray;
+declare declare function matmul(A: NDArray, B: NDArray): NDArray;
 /**
  * Computes p-norm of given Matrix or Vector
  * \`A\` must be a Vector (1D) or Matrix (2D)
@@ -940,14 +940,14 @@ export declare function matmul(A: NDArray, B: NDArray): NDArray;
  * $$ \left\Vert A \right\Vert\_F = \sqrt { \sum\_{i=0}^m \sum\_{j=0}^n \lvert a\_{ij} \rvert ^2 } $$
  *
  */
-export declare function norm(A: NDArray, p?: number | 'fro'): number;
+declare declare function norm(A: NDArray, p?: number | 'fro'): number;
 /**
  * @hidden
  * Perform LU decomposition
  *
  * $$ A = P L U $$
  */
-export declare function lu_custom(A: NDArray): NDArray;
+declare declare function lu_custom(A: NDArray): NDArray;
 /**
  * @hidden
  * Ref: Golub-Loan 3.1.1
@@ -988,7 +988,7 @@ export declare function lu_custom(A: NDArray): NDArray;
  * @param A Coefficient matrix (gets modified)
  * @param B RHS (populated with solution x upon return)
  */
-export declare function solve(A: NDArray, B: NDArray): void;
+declare declare function solve(A: NDArray, B: NDArray): void;
 /**
  * Computes inner product of two 1D vectors (same as dot product).
  * Both inputs are supposed to be 1 dimensional arrays of same length.
@@ -998,18 +998,18 @@ export declare function solve(A: NDArray, B: NDArray): void;
  * @param A 1D Vector
  * @param B 1D Vector
  */
-export declare function inner(A: NDArray, B: NDArray): number;
+declare declare function inner(A: NDArray, B: NDArray): number;
 /**
  * Compute outer product of two vectors
  * @param A Vector of shape [m] or [m,1]
  * @param B Vector of shape [n] or [1,n]
  * @returns NDArray Matrix of dimension [m,n]
  */
-export declare function outer(A: NDArray, B: NDArray): NDArray;
+declare declare function outer(A: NDArray, B: NDArray): NDArray;
 /**
  * Perform Cholesky decomposition on given Matrix
  */
-export declare function cholesky(A: NDArray): NDArray;
+declare declare function cholesky(A: NDArray): NDArray;
 /**
  * Singular Value Decomposition
  * Factors the given matrix A, into U,S,VT such that
@@ -1021,15 +1021,15 @@ export declare function cholesky(A: NDArray): NDArray;
  * @param compute_uv Whether or not to compute U,VT in addition to S
  * @return [NDArray] [U,S,VT] if compute_uv = true, [S] otherwise
  */
-export declare function svd(A: NDArray, full_matrices?: boolean, compute_uv?: boolean): NDArray[];
+declare declare function svd(A: NDArray, full_matrices?: boolean, compute_uv?: boolean): NDArray[];
 /**
  * Rank of a matrix is defined by number of singular values of the matrix that
  * are non-zero (within given tolerance)
  * @param A Matrix to determine rank of
  * @param tol Tolerance for zero-check of singular values
  */
-export declare function rank(A: NDArray, tol?: number): number;
-export interface lstsq_return {
+declare declare function rank(A: NDArray, tol?: number): number;
+declare interface lstsq_return {
     /**
      * Least-squares solution. If \`b\` is two-dimensional,
      * the solutions are in the \`K\` columns of \`x\`.
@@ -1069,7 +1069,7 @@ export interface lstsq_return {
  *          m or it could be 2D with dimensions m-by-k
  * @param rcond Cut-off ratio for small singular values of \`a\`
  */
-export declare function lstsq(A: NDArray, B: NDArray, rcond?: number): lstsq_return;
+declare declare function lstsq(A: NDArray, B: NDArray, rcond?: number): lstsq_return;
 /**
  * Compute sign and natural logarithm of the determinant of given Matrix
  * If an array has a very small or very large determinant, then a call to
@@ -1078,68 +1078,68 @@ export declare function lstsq(A: NDArray, B: NDArray, rcond?: number): lstsq_ret
  * the determinant itself.
  * @param A Square matrix to compute sign and log-determinant of
  */
-export declare function slogdet(A: NDArray): number[];
+declare declare function slogdet(A: NDArray): number[];
 /**
  * Compute determinant of a matrix
  * @param A Square matrix to compute determinant
  */
-export declare function det(A: NDArray): number;
+declare declare function det(A: NDArray): number;
 /**
  * Compute (multiplicative) inverse of given matrix
  * @param A Square matrix whose inverse is to be found
  */
-export declare function inv(A: NDArray): NDArray;
+declare declare function inv(A: NDArray): NDArray;
 /**
  * Create Lower triangular matrix from given matrix
  */
-export declare function tril(A: NDArray, k?: number): NDArray;
+declare declare function tril(A: NDArray, k?: number): NDArray;
 /**
  * Return Upper triangular matrix from given matrix
  */
-export declare function triu(A: NDArray, k?: number): NDArray;
+declare declare function triu(A: NDArray, k?: number): NDArray;
 /**
  * Compute QR decomposition of given Matrix
  */
-export declare function qr(A: NDArray): NDArray[];
+declare declare function qr(A: NDArray): NDArray[];
 /**
  * Compute Eigen values and left, right eigen vectors of given Matrix
  */
-export declare function eig(A: NDArray): NDArray[];
+declare declare function eig(A: NDArray): NDArray[];
 `,
   fpath : "bluemath/lib/linalg/operations.d.ts"
 }
 ,
 {
-  source : `import { NDArray, Complex, NumberType } from './';
+  source : `
 /**
  * Convert angle to degrees
  */
-export declare function todeg(angleInRadians: number): number;
+declare declare function todeg(angleInRadians: number): number;
 /**
  * Convert angle to radians
  */
-export declare function torad(angleInDegrees: number): number;
+declare declare function torad(angleInDegrees: number): number;
 /**
  * Check if input equals zero within given tolerance
  */
-export declare function iszero(x: number, tolerance?: number): boolean;
+declare declare function iszero(x: number, tolerance?: number): boolean;
 /**
  * Check if two input numbers are equal within given tolerance
  */
-export declare function isequal(a: number, b: number, tolerance?: number): boolean;
+declare declare function isequal(a: number, b: number, tolerance?: number): boolean;
 /**
  * Find cube root of given number. Math.pow return NaN while taking
  * cube root of negative number, because some of the results might
  * be complex numbers. This function only return the real cubeRoot
  * of given number
  */
-export declare function cuberoot(x: number): number;
+declare declare function cuberoot(x: number): number;
 /**
  * Generate array of integers within given range.
  * If both a and b are specified then return [a,b)
  * if only a is specifed then return [0,a)
  */
-export declare function range(a: number, b?: number): number[];
+declare declare function range(a: number, b?: number): number[];
 /**
  * Creates m-by-n Identity matrix
  *
@@ -1150,7 +1150,7 @@ export declare function range(a: number, b?: number): number[];
  * eye(2,'i32') // Creates 2x2 Identity matrix of 32-bit integers
  * \`\`\`
  */
-export declare function eye(arg0: number | number[], datatype?: NumberType): NDArray;
+declare declare function eye(arg0: number | number[], datatype?: NumberType): NDArray;
 /**
  * Creates NDArray filled with zeros
  *
@@ -1160,7 +1160,7 @@ export declare function eye(arg0: number | number[], datatype?: NumberType): NDA
  * zeros(2,'i16') // Creates 2x2 matrix of 16-bit integers filled with zeros
  * \`\`\`
  */
-export declare function zeros(arg0: number | number[], datatype?: NumberType): NDArray;
+declare declare function zeros(arg0: number | number[], datatype?: NumberType): NDArray;
 /**
  * Add all arguments in accordance to their types
  * The arguments could be NDArray or numbers (real/complex).
@@ -1168,7 +1168,7 @@ export declare function zeros(arg0: number | number[], datatype?: NumberType): N
  * otherwise exception is thrown
  * The order of addition starts from left to right
  */
-export declare function add(...args: (NDArray | number | Complex)[]): number | NDArray | Complex;
+declare declare function add(...args: (NDArray | number | Complex)[]): number | NDArray | Complex;
 /**
  * Multiply all arguments in accordance with their data types
  * Each argument can be a number (real or complex) or NDArray.
@@ -1177,7 +1177,7 @@ export declare function add(...args: (NDArray | number | Complex)[]): number | N
  * otherwise an exception is thrown
  * The order of multiplication starts from left to right
  */
-export declare function mul(...args: (NDArray | number | Complex)[]): number | NDArray | Complex;
+declare declare function mul(...args: (NDArray | number | Complex)[]): number | NDArray | Complex;
 /**
  * Subtract second argument from first
  * The arguments could be a number (real or complex) or NDArray.
@@ -1185,26 +1185,26 @@ export declare function mul(...args: (NDArray | number | Complex)[]): number | N
  * be compatible with the other operand of subtraction operation,
  * otherwise an exception is thrown
  */
-export declare function sub(a: number | Complex | NDArray, b: number | Complex | NDArray): number | NDArray | Complex;
+declare declare function sub(a: number | Complex | NDArray, b: number | Complex | NDArray): number | NDArray | Complex;
 /**
  * Divide first argument by second
  * The first argument can be a number (real or complex) or NDArray.
  * The second argument can be a number (real or complex)
  */
-export declare function div(a: number | Complex | NDArray, b: number | Complex): number | NDArray | Complex;
+declare declare function div(a: number | Complex | NDArray, b: number | Complex): number | NDArray | Complex;
 `,
   fpath : "bluemath/lib/ops.d.ts"
 }
 ,
 {
-  source : `import { minimize } from './minimize';
-export { minimize };
+  source : `
+declare { minimize };
 `,
   fpath : "bluemath/lib/optimize/index.d.ts"
 }
 ,
 {
-  source : `export declare function minimize(): void;
+  source : `declare declare function minimize(): void;
 `,
   fpath : "bluemath/lib/optimize/minimize.d.ts"
 }
@@ -1214,20 +1214,20 @@ export { minimize };
  * @hidden
  * Convert angle to degrees
  */
-export declare function toDeg(angleInRadians: number): number;
+declare declare function toDeg(angleInRadians: number): number;
 /**
  * @hidden
  * Convert angle to radians
  */
-export declare function toRad(angleInDegrees: number): number;
+declare declare function toRad(angleInDegrees: number): number;
 /**
  * Check if input equals zero within given tolerance
  */
-export declare function iszero(x: number, tolerance?: number): boolean;
+declare declare function iszero(x: number, tolerance?: number): boolean;
 /**
  * Check if two input numbers are equal within given tolerance
  */
-export declare function isequal(a: number, b: number, tolerance?: number): boolean;
+declare declare function isequal(a: number, b: number, tolerance?: number): boolean;
 /**
  * @hidden
  * Find cube root of given number. Math.pow return NaN while taking
@@ -1235,7 +1235,7 @@ export declare function isequal(a: number, b: number, tolerance?: number): boole
  * be complex numbers. This function only return the real cubeRoot
  * of given number
  */
-export declare function cuberoot(x: number): number;
+declare declare function cuberoot(x: number): number;
 `,
   fpath : "bluemath/lib/utils.d.ts"
 }

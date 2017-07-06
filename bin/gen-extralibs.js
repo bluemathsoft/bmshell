@@ -53,6 +53,9 @@ window.EXTRA_LIBS = [
 for(let i=0; i<extralibs.length; i++) {
   let entry = extralibs[i];
   let source = entry.source.replace(/`/g,'\\`');
+  source = source.replace(/export default/g,'declare');
+  source = source.replace(/export/g,'declare');
+  source = source.replace(/import.*/g,'');
   let fpath = entry.fpath.substr(entry.fpath.indexOf('bluemath'));
   content += 
 `
