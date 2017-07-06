@@ -112,9 +112,6 @@
 		require.config({ paths: { 'vs': './ext/monaco-editor/min/vs' }});
 		require(['vs/editor/editor.main'], function() {
 			editor = monaco.editor.create(editorElem, {
-				value: [
-					'console.log(bluemath.EPSILON);',
-				].join('\n'),
 				language: 'typescript',
 				lineNumbers : false,
 				minimap : {
@@ -136,44 +133,26 @@
 
 			// extra libraries
 			for(let extralib of EXTRA_LIBS) {
-				console.log(extralib.fpath);
 				monaco.languages.typescript.typescriptDefaults.addExtraLib(
 					extralib.source, extralib.fpath);
 			}
-			/*
-			monaco.languages.typescript.typescriptDefaults.addExtraLib([
-				'declare class Facts {',
-				'    /**',
-				'     * Returns the next fact',
-				'     * /',
-				'    static next():string',
-				'}',
-			].join('\n'), 'filename/facts.d.ts');
-			monaco.languages.typescript.typescriptDefaults.addExtraLib([
-				'declare class Fiction {',
-				'    /**',
-				'     * Returns the next fact',
-				'     * /',
-				'    static next():string;',
-				'    toString():string;',
-				'}',
-			].join('\n'), 'filename/fiction.d.ts');
-			monaco.languages.typescript.typescriptDefaults.addExtraLib([
-				'    declare var fctn:Fiction',
-			].join('\n'), 'filename/vars.d.ts');
-			*/
+
+			// Setup example choices
+			let exmKeys = Object.keys(BMSHELL_EXAMPLES);
+			for(let key of exmKeys) {
+				let opt = document.createElement('option');
+				opt.textContent = key;
+				exmChoices.appendChild(opt);
+			}
+			exmChoices.onchange = () => {
+				let exmCode = BMSHELL_EXAMPLES[exmChoices.value];
+				editor.getModel().setValue(exmCode);
+			}
+			// Populate with first example
+			exmChoices.value = exmKeys[0];
+			editor.getModel().setValue(BMSHELL_EXAMPLES[exmKeys[0]]);
 		});
 
-		// Setup example choices
-		for(let key in BMSHELL_EXAMPLES) {
-			let opt = document.createElement('option');
-			opt.textContent = key;
-			exmChoices.appendChild(opt);
-		}
-		exmChoices.onchange = () => {
-			let exmCode = BMSHELL_EXAMPLES[exmChoices.value];
-			editor.getModel().setValue(exmCode);
-		}
 
 		// Recreate the runtime iframe and execute the code each time 'Run'
 		// is clicked
