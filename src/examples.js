@@ -35,10 +35,29 @@ let A = new NDArray([
 
 bmlog('A',A);
 bmlog('Determinant = ',linalg.det(A));
+let [sign,logdet] = linalg.slogdet(A);
+bmlog('Signed Log of Determinant = ',sign*logdet);
 `;
+
+const triangular_matrices = 
+`
+const bm = bluemath;
+
+let A = new bm.NDArray([
+    [4,5,6,7],
+    [2,3,4,5],
+    [0,2,3,4],
+    [1,2,4,5]
+],{datatype:'i32'});
+
+bmlog('A',A);
+bmlog('Upper Triangular',bm.linalg.triu(A));
+bmlog('Lower Triangular',bm.linalg.tril(A));
+`
 
 let BMSHELL_EXAMPLES = {
   'Simple' : simple,
   'Identity and Multiplication' : identity_and_multiplication,
-  'Determinant' : determinant
+  'Determinant' : determinant,
+  'Triangular Matrices' : triangular_matrices
 };
