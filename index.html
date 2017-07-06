@@ -44,7 +44,8 @@
 			background : #000;
 			color: #4cabff;
 			padding : 2px;
-			margin : 6px;
+			margin-right : 24px;
+			margin-top : 12px;
 			cursor : pointer;
 			-webkit-border-radius: 6;
 			-moz-border-radius: 6;
@@ -79,6 +80,7 @@
 
 <body>
 <script src="./src/examples.js"></script>
+<script src="./build/extralibs.js"></script>
 <script src="./ext/monaco-editor/min/vs/loader.js"></script>
 
 	<div id="container">
@@ -113,12 +115,53 @@
 				value: [
 					'console.log(bluemath.EPSILON);',
 				].join('\n'),
-				language: 'javascript',
+				language: 'typescript',
 				lineNumbers : false,
 				minimap : {
 					enabled : false
 				}
 			});
+
+			// validation settings
+			monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+				noSemanticValidation: true,
+				noSyntaxValidation: false
+			});
+
+			// compiler options
+			monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+				target: monaco.languages.typescript.ScriptTarget.ES6,
+				allowNonTsExtensions: true
+			});
+
+			// extra libraries
+			for(let extralib of EXTRA_LIBS) {
+				console.log(extralib.fpath);
+				monaco.languages.typescript.typescriptDefaults.addExtraLib(
+					extralib.source, extralib.fpath);
+			}
+			/*
+			monaco.languages.typescript.typescriptDefaults.addExtraLib([
+				'declare class Facts {',
+				'    /**',
+				'     * Returns the next fact',
+				'     * /',
+				'    static next():string',
+				'}',
+			].join('\n'), 'filename/facts.d.ts');
+			monaco.languages.typescript.typescriptDefaults.addExtraLib([
+				'declare class Fiction {',
+				'    /**',
+				'     * Returns the next fact',
+				'     * /',
+				'    static next():string;',
+				'    toString():string;',
+				'}',
+			].join('\n'), 'filename/fiction.d.ts');
+			monaco.languages.typescript.typescriptDefaults.addExtraLib([
+				'    declare var fctn:Fiction',
+			].join('\n'), 'filename/vars.d.ts');
+			*/
 		});
 
 		// Setup example choices
