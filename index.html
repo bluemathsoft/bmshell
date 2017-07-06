@@ -108,6 +108,11 @@
 		let docsCloseElem = document.getElementById('docsclose');
 		let exmChoices = document.getElementById('examples-choices');
 
+		let preambleTypeDeclaration =
+		`
+		declare function bmlog(...args:any[]) {}
+		`
+
 		// Setup Monaco editor
 		require.config({ paths: { 'vs': './ext/monaco-editor/min/vs' }});
 		require(['vs/editor/editor.main'], function() {
@@ -136,6 +141,8 @@
 				monaco.languages.typescript.typescriptDefaults.addExtraLib(
 					extralib.source, extralib.fpath);
 			}
+			monaco.languages.typescript.typescriptDefaults.addExtraLib(
+				preambleTypeDeclaration);
 
 			// Setup example choices
 			let exmKeys = Object.keys(BMSHELL_EXAMPLES);
