@@ -52,6 +52,27 @@
 			margin-right : 10px;
 			cursor : pointer;
 		}
+
+		.styled-select {
+			background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+			height: 29px;
+			overflow: hidden;
+			width: 240px;
+	   	-webkit-border-radius: 5px;
+   		-moz-border-radius: 5px;
+   		border-radius: 5px;
+			background-color :#4040ff;
+		}
+
+		.styled-select select {
+			background: transparent;
+			border: none;
+			font-size: 14px;
+			height: 29px;
+			padding: 5px; /* If you add too much padding here, the options won't show in IE */
+			width: 268px;
+			color : white;
+		}
 	</style>
 </head>
 
@@ -70,7 +91,9 @@
 		<i class="btn fa fa-trash fa-2x" id="btn-clear" title="Clear"></i>
 		<i class="btn fa fa-save fa-2x" id="btn-save" title="Save"></i>
 		<i class="btn fa fa-book fa-2x" id="btn-docs" title="API Docs"></i>
-		<select id="examples-choices"></select>
+		<div class="styled-select">
+			<select id="examples-choices"></select>
+		</div>
 	</div>
 	<div id="docholder">
 		<i class="btn fa fa-window-close fa-2x" id="docsclose" title="Close"></i>
