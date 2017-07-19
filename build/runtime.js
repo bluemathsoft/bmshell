@@ -1307,6 +1307,21 @@ window.bmlog = function () {
     el.innerHTML = s;
     document.body.appendChild(el);
 };
+;
+window.bmplot = function (name, spec) {
+    console.assert(spec.x && Array.isArray(spec.x));
+    console.assert(spec.y && Array.isArray(spec.y));
+    var pelem = document.createElement('div');
+    pelem.setAttribute('id', 'plot-' + name);
+    pelem.setAttribute('class', 'plot');
+    Plotly.plot(pelem, [{
+            x: spec.x,
+            y: spec.y
+        }], {
+        margin: { t: 0 }
+    });
+    document.body.appendChild(pelem);
+};
 
 
 /***/ }),
