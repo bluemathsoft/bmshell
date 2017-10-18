@@ -11,7 +11,7 @@
   "author": "Jayesh Salvi",
   "license": "AGPL-3.0",
   "dependencies": {
-    "bluemath": "^0.4.0"
+    "bluemath": "^0.4.1"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.2.3",

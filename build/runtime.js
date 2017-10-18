@@ -4738,7 +4738,7 @@ var geom = __webpack_require__(34);
 exports.geom = geom;
 var topo = __webpack_require__(37);
 exports.topo = topo;
-exports.version = '0.3.3'; // TODO: populate from package.json
+exports.version = '0.4.1'; // TODO: populate from package.json
 
 
 /***/ }),
