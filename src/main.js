@@ -40,10 +40,12 @@
     });
 
     // extra libraries
+    /*
     for(let extralib of EXTRA_LIBS) {
       monaco.languages.typescript.typescriptDefaults.addExtraLib(
         extralib.source, extralib.fpath);
     }
+    */
     monaco.languages.typescript.typescriptDefaults.addExtraLib(
       preambleTypeDeclaration);
 
