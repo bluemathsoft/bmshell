@@ -6,12 +6,12 @@
   "scripts": {
     "start": "http-server -p8088 -c-1",
     "build-runtime": "webpack --config webpack.config.js",
-    "deploy-shell": "cp -r index.html runtime.html build/ ext/ src/ fonts/ ../bluemathsoft.github.io/shell/"
+    "deploy-shell": "cp index.html runtime.html ../bluemathsoft.github.io/shell/ && cp -r build/* ../bluemathsoft.github.io/shell/build/ && cp -r ext/* ../bluemathsoft.github.io/shell/ext/ && cp -r fonts/* ../bluemathsoft.github.io/shell/fonts/ && cp -r src/* ../bluemathsoft.github.io/shell/src/ "
   },
   "author": "Jayesh Salvi",
   "license": "AGPL-3.0",
   "dependencies": {
-    "bluemath": "^0.4.1"
+    "bluemath": "^0.4.2"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.2.3",
