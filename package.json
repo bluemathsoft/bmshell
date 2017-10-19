@@ -6,14 +6,19 @@
   "scripts": {
     "start": "http-server -p8088 -c-1",
     "build-runtime": "webpack --config webpack.config.js",
+    "watch-runtime": "webpack --watch --config webpack.config.js",
     "deploy-shell": "cp index.html runtime.html ../bluemathsoft.github.io/shell/ && cp -r build/* ../bluemathsoft.github.io/shell/build/ && cp -r ext/* ../bluemathsoft.github.io/shell/ext/ && cp -r fonts/* ../bluemathsoft.github.io/shell/fonts/ && cp -r src/* ../bluemathsoft.github.io/shell/src/ "
   },
   "author": "Jayesh Salvi",
   "license": "AGPL-3.0",
   "dependencies": {
-    "bluemath": "^0.4.2"
+    "bluemath": "^0.4.2",
+    "plotly.js": "^1.31.1",
+    "three": "^0.87.1",
+    "three-orbitcontrols-ts": "github:bluemathsoft/three-orbitcontrols-ts"
   },
   "devDependencies": {
+    "@types/three": "^0.84.27",
     "awesome-typescript-loader": "^3.2.3",
     "http-server": "^0.10.0",
     "source-map-loader": "^0.2.2",

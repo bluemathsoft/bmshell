@@ -3,10 +3,15 @@ const simple =
 `
 console.log('BlueMath version:',bluemath.version);
 let A = new bluemath.NDArray([
-  [2,0],
-  [5,1]
+  [1,0],
+  [2,1],
+  [3,4],
+  [4,4],
+  [5,8],
+  [6,1]
 ]);
 bmlog('A',A.toString());
+bmplot(A);
 `;
 
 const identity_and_multiplication =

@@ -46,6 +46,7 @@
         extralib.source, extralib.fpath);
     }
     */
+
     monaco.languages.typescript.typescriptDefaults.addExtraLib(
       preambleTypeDeclaration);
 
