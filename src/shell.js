@@ -88,12 +88,12 @@
     if(confirm('Clear the editor? You will loose any unsaved code')) {
       editor.getModel().setValue('');
     }
-  }
+  };
 
   saveElem.onclick = () => {
     var blob = new Blob([editor.getModel().getValue()], {type: "text/plain;charset=utf-8"});
     saveAs(blob, 'bluemath-script.ts');
-  }
+  };
 
   containerElem.style.width = W+'px';
   containerElem.style.height = Math.round(0.9*H)+'px';

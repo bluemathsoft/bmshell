@@ -176,10 +176,15 @@ export class Renderer {
         this.plotlyLayout.yaxis2 = { anchor : 'x2' };
       }
       this.plotlyLayout.margin = { t:0, b:0, l:0, r:0 };
+      this.plotlyLayout.width = this.width;
+      this.plotlyLayout.height = this.height;
     } else {
       this.plotlyLayout = {};
       this.plotlyLayout.xaxis = {anchor:'y1'};
       this.plotlyLayout.yaxis = {};
+      this.plotlyLayout.margin = { t:20, b:20, l:20, r:20 };
+      this.plotlyLayout.width = this.width;
+      this.plotlyLayout.height = this.height;
     }
   }
 
@@ -209,7 +214,7 @@ export class Renderer {
         this.plotlyLayout.yaxis2.range = range.y;
       }
     }
-    Plotly.newPlot(this.div, traces, this.plotlyLayout);
+    Plotly.newPlot(this.div, traces, this.plotlyLayout, {staticPlot:true});
   }
 
   render3D(arrtess:TessFormat3D[]) {
