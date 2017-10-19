@@ -80,18 +80,13 @@
         ifrm.contentWindow.scopedEval(codestring);
       }
     }
+    ifrm.style.width = (W-500)+'px';
   };
 
   let docsButton = document.querySelector('#btn-docs');
   docsButton.onclick = () => {
     window.open('http://www.bluemathsoftware.com/docs.html','_blank');
   };
-
-  docsCloseElem.onclick = () => {
-    let ifrm = docholderElem.querySelector('iframe');
-    ifrm.remove();
-    docholderElem.style.left = (W+20)+'px';
-  }
 
   clearElem.onclick = () => {
     if(confirm('Clear the editor? You will loose any unsaved code')) {
@@ -105,7 +100,5 @@
   }
 
   containerElem.style.width = W+'px';
-  containerElem.style.height = Math.round(0.8*H)+'px';
-  editorElem.style.width = Math.round(0.6*W)+'px';
-  runtimeElem.style.width = Math.round(0.4*W)+'px';
-  runtimeElem.style.marginLeft = Math.round(0.6*W)+'px';
+  containerElem.style.height = Math.round(0.9*H)+'px';
+  editorElem.style.width = '500px';
