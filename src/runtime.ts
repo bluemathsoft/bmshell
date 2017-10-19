@@ -57,8 +57,8 @@ import {Renderer} from './renderer'
 
 (<any>window).bmplot = function (...args:any[]) {
   for(let arg of args) {
-    if(arg instanceof bluemath.NDArray) {
-      let arr = <bluemath.NDArray>arg;
+    if(arg instanceof bluemath.common.NDArray) {
+      let arr = <bluemath.common.NDArray>arg;
       if(arr.shape.length === 2) {
         if(arr.shape[1] === 2) {
           let div = document.createElement('div');
