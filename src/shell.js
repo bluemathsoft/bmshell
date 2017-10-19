@@ -61,6 +61,12 @@
     // Populate with first example
     exmChoices.value = exmKeys[0];
     editor.getModel().setValue(BMSHELL_EXAMPLES[exmKeys[0]]);
+
+    // Create IFrame
+    ifrm = document.createElement('iframe');
+    ifrm.setAttribute('src', './runtime.html');
+    runtimeElem.appendChild(ifrm);
+    ifrm.style.width = (W-500)+'px';
   });
 
 
@@ -70,17 +76,7 @@
   runbutton.onclick = () => {
     let codestring = editor.getModel().getValue();
     let ifrm = runtimeElem.querySelector('iframe');
-    if(ifrm) {
-      ifrm.contentWindow.scopedEval(codestring);
-    } else {
-      ifrm = document.createElement('iframe');
-      ifrm.setAttribute('src', './runtime.html');
-      runtimeElem.appendChild(ifrm);
-      ifrm.contentWindow.onload = () => {
-        ifrm.contentWindow.scopedEval(codestring);
-      }
-    }
-    ifrm.style.width = (W-500)+'px';
+    ifrm.contentWindow.scopedEval(codestring);
   };
 
   let docsButton = document.querySelector('#btn-docs');
