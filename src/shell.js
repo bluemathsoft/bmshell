@@ -1,4 +1,5 @@
 
+
   let W = window.innerWidth-10;
   let H = window.innerHeight-10;
   var editor;
@@ -40,12 +41,8 @@
     });
 
     // extra libraries
-    /*
-    for(let extralib of EXTRA_LIBS) {
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        extralib.source, extralib.fpath);
-    }
-    */
+    monaco.languages.typescript.typescriptDefaults.addExtraLib(
+      EXTRA_LIBS, 'bluemath.d.ts');
 
     monaco.languages.typescript.typescriptDefaults.addExtraLib(
       preambleTypeDeclaration);
