@@ -42,7 +42,7 @@
 
     // extra libraries
     monaco.languages.typescript.typescriptDefaults.addExtraLib(
-      EXTRA_LIBS, 'bluemath.d.ts');
+      EXTRA_LIBS,'bluemath.d.ts');
 
     monaco.languages.typescript.typescriptDefaults.addExtraLib(
       preambleTypeDeclaration);

@@ -4,9 +4,9 @@ const path = require('path');
 
 let node_modules = path.join(__dirname,'..','node_modules');
 
-let outfile = fs.openSync('extralibs.ts','w');
+let outfile = fs.openSync('build/extralibs.js','w');
 
-fs.writeSync(outfile,'const EXTRA_LIBS = `\n');
+fs.writeSync(outfile,'var EXTRA_LIBS = `\n');
 
 let dirstack = [];
 let namespace;
@@ -23,17 +23,15 @@ function walk(topdir) {
       namespace.pop();
       dirstack.pop();
     } else if(fname.endsWith('.d.ts')) {
-      console.log(namespace.join('.'),fname);
       let fpath = path.join(dirpath,fname);
       let source = new String(fs.readFileSync(fpath));
-      console.log(source.toString());
       for(let line of source.split('\n')) {
         if(/import/g.test(line)) {
         } else if(/`/g.test(line)) {
         } else if(/export\s+(?!(declare))/g.test(line)) {
         } else {
           line = line.replace(/export declare/g,'declare');
-          fs.writeSync(outfile,line+'\n');
+          fs.writeSync(outfile,'    '+line+'\n');
         }
       }
     }

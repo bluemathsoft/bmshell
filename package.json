@@ -14,7 +14,7 @@
   "author": "Jayesh Salvi",
   "license": "AGPL-3.0",
   "dependencies": {
-    "bluemath": "^0.4.2",
+    "bluemath": "^0.4.3",
     "monaco-editor": "^0.10.1",
     "plotly.js": "^1.31.1",
     "three": "^0.87.1",
