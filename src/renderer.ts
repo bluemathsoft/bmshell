@@ -23,6 +23,7 @@ import * as THREE from 'three'
 import {OrbitControls} from 'three-orbitcontrols-ts'
 import {TypedArray} from '@bluemath/common'
 
+declare let Plotly:any; // Workaround to get rid of TypeScript compile error
 
 export interface TessFormat3D {
   points? : Array<number[]>;
