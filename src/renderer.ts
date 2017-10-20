@@ -19,7 +19,6 @@ along with bluemath. If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-import * as Plotly from 'plotly.js/lib/core'
 import * as THREE from 'three'
 import {OrbitControls} from 'three-orbitcontrols-ts'
 import {TypedArray} from '@bluemath/common'
