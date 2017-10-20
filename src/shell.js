@@ -67,13 +67,21 @@
     ifrm.setAttribute('src', './runtime.html');
     runtimeElem.appendChild(ifrm);
     ifrm.style.width = (W-500)+'px';
+    ifrm.contentWindow.onload = function () {
+      var runbutton = document.querySelector('#btn-run');
+      runbutton.classList.remove('btn-disabled');
+    }
   });
 
 
   // Recreate the runtime iframe and execute the code each time 'Run'
   // is clicked
   var runbutton = document.querySelector('#btn-run');
+  runbutton.classList.add('btn-disabled');
   runbutton.onclick = () => {
+    if(runbutton.classList.contains('btn-disabled')) {
+      return; // done nothing
+    }
     let codestring = editor.getModel().getValue();
     let ifrm = runtimeElem.querySelector('iframe');
     ifrm.contentWindow.scopedEval(codestring);
