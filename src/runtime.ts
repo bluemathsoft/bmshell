@@ -1,6 +1,7 @@
 
 import * as bluemath from 'bluemath'
 import {Renderer} from './renderer'
+import {GeometryAdapter} from './adapter'
 
 (<any>window).bluemath = bluemath;
 
@@ -114,30 +115,21 @@ function plot2DArray(object:bluemath.common.NDArray, options?:any) {
       let arr = <bluemath.common.NDArray>object;
       if(arr.shape.length === 2) {
         plot2DArray(object,options);
-        /*
-        if(arr.shape[1] === 2) {
-          let div = document.createElement('div');
-          document.body.appendChild(div);
-          let rndr = new Renderer(div,'plotly',{width:300,height:200});
-          let trace = {
-            x : Array.from(arr.getA(':',0).data),
-            y : Array.from(arr.getA(':',1).data),
-            xaxis : 'x1',
-            yaxis : 'y1',
-            type : 'scatter',
-            mode : 'lines'
-          };
-          rndr.render2D([trace]);
-
-        } else if(arr.shape[1] === 3) {
-        } else {
-          console.warn('Unplottable object '+object);
-        }
-        */
-
       } else {
         console.warn('Unplottable object '+object);
       }
+    } else if(
+      object instanceof bluemath.geom.nurbs.BezierCurve ||
+      object instanceof bluemath.geom.nurbs.BSplineCurve ||
+      object instanceof bluemath.geom.nurbs.BezierSurface ||
+      object instanceof bluemath.geom.nurbs.BSplineSurface)
+    {
+      let div = document.createElement('div');
+      document.body.appendChild(div);
+      let width = (options && options.width) || 300;
+      let height = (options && options.height) || 200;
+      let rndr = new Renderer(div,'plotly',{width,height});
+      new GeometryAdapter(object,rndr);
     } else {
       console.warn('Unplottable object '+object);
     }

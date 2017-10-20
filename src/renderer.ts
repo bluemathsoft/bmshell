@@ -185,6 +185,7 @@ export class Renderer {
       this.plotlyLayout.margin = { t:20, b:20, l:20, r:20 };
       this.plotlyLayout.width = this.width;
       this.plotlyLayout.height = this.height;
+      this.plotlyLayout.showlegend = false;
     }
   }
 

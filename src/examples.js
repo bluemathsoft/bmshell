@@ -95,11 +95,39 @@ bmlog('A[null,2] = ',A.get(null,2));
 bmlog('A[:2,1:3] = ',A.get(':2','1:3'));
 `
 
+const curves =
+`
+let {arr} = bluemath.common;
+
+bmlog('Bezier Curve');
+let bezcrv = new bluemath.geom.nurbs.BezierCurve(
+    2,arr([[10,10],[30,25],[10,50]]));
+bmplot(bezcrv);
+
+bmlog('BSpline Curve');
+let bcrv = new bluemath.geom.nurbs.BSplineCurve(
+    2,
+    arr([
+        [-5, -5],
+        [-2, 0],
+        [-1, 5],
+        [-0.5, 2],
+        [0.5, 2],
+        [1, 5],
+        [2, 0],
+        [5, -5]
+      ]),
+    arr([0, 0, 0, 0.2, 0.4, 0.6, 0.8, 0.8, 1, 1, 1])
+);
+bmplot(bcrv);
+`
+
 let BMSHELL_EXAMPLES = {
   'Simple' : simple,
   'NDArray Arithmatic' : ndarray_arithmatic,
   'NDArray Slicing' : ndarray_slicing,
   'Identity and Multiplication' : identity_and_multiplication,
   'Matrix Determinant' : determinant,
-  'Triangular Matrices' : triangular_matrices
+  'Triangular Matrices' : triangular_matrices,
+  'Curves' : curves
 };
