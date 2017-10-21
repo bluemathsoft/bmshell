@@ -56,12 +56,13 @@ let A = new NDArray([
     [1,2,4,5]
 ],{datatype:'i32'});
 
-bmlog('A');
-plot(A,{type:'matrix'});
-bmlog('Upper Triangular');
-plot(triu(A),{type:'matrix'});
-bmlog('Lower Triangular');
-plot(tril(A),{type:'matrix'});
+plot(A,{type:'matrix',title:'A'});
+plot([triu(A),tril(A)],
+  [
+    {type:'matrix',title:'Upper'},
+    {type:'matrix',title:'Lower'}
+  ]
+);
 `
 
 const ndarray_arithmatic =

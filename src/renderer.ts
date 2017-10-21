@@ -215,11 +215,15 @@ export class Renderer {
         this.plotlyLayout.yaxis2.range = options.range.y;
       }
     }
-    if(options && options.reverseYRange) {
+    if(options && options.ismatrix) {
       this.plotlyLayout.yaxis.autorange = 'reversed';
       this.plotlyLayout.xaxis.side = 'top';
       this.plotlyLayout.xaxis.ticklen = 0;
       this.plotlyLayout.yaxis.ticklen = 0;
+    }
+    if(options && options.title) {
+      this.plotlyLayout.title = options.title;
+      this.plotlyLayout.margin.t = 40;
     }
     Plotly.newPlot(this.div, traces, this.plotlyLayout, {staticPlot:true});
   }

@@ -20,17 +20,17 @@ export type PlotData = Array<any> |
   bluemath.geom.nurbs.BezierSurface |
   bluemath.geom.nurbs.BSplineSurface;
 
-function plot2DArray(object:bluemath.common.NDArray, options?:any) {
+function plot2DArray(object:bluemath.common.NDArray, spec?:PlotSpec) {
   let type:string = 'scatter';
   let mode:string|undefined = 'lines';
-  if(options && options.type) {
-    if(options.type === 'points') {
+  if(spec && spec.type) {
+    if(spec.type === 'points') {
       type = 'scatter';
       mode = 'markers';
-    } else if(options.type === 'line') {
+    } else if(spec.type === 'line') {
       type = 'scatter';
       mode = 'lines';
-    } else if(options.type === 'matrix') {
+    } else if(spec.type === 'matrix') {
       type = 'heatmap';
       mode = undefined;
     }
@@ -42,14 +42,15 @@ function plot2DArray(object:bluemath.common.NDArray, options?:any) {
 
   let width = 300;
   let height = 200;
-  if(options && options.width) {
-    width = options.width;
+  if(spec && spec.width) {
+    width = spec.width;
   }
-  if(options && options.height) {
-    height = options.height;
+  if(spec && spec.height) {
+    height = spec.height;
   }
 
   let div = document.createElement('div');
+  div.classList.add('bm-plot');
   document.body.appendChild(div);
   let rndr = new Renderer(div,'plotly',{width,height});
   let trace;
@@ -62,13 +63,18 @@ function plot2DArray(object:bluemath.common.NDArray, options?:any) {
       type : type,
       mode : mode
     };
-    rndr.render2D([trace]);
+    rndr.render2D([trace], {
+      title : spec ? spec.title : undefined
+    });
   } else if(type === 'heatmap') {
     trace = {
       z : object.toArray(),
       type : type
     };
-    rndr.render2D([trace],{reverseYRange:true});
+    rndr.render2D([trace],{
+      ismatrix : true,
+      title : spec ? spec.title : undefined
+    });
   }
   return div;
 }
@@ -80,6 +86,7 @@ type GeometryType = bluemath.geom.nurbs.BezierCurve |
 
 function plotGeometry(geometry:GeometryType, spec?:PlotSpec) {
   let div = document.createElement('div');
+  div.classList.add('bm-plot');
   let width = (spec && spec.width) || 300;
   let height = (spec && spec.height) || 200;
   let rndr = new Renderer(div,'plotly',{width,height});
@@ -116,6 +123,7 @@ export function plot(data:PlotData|PlotData[], spec?:PlotSpec|PlotSpec[]) {
   }
 
   let groupDiv = document.createElement('div');
+  groupDiv.classList.add('bm-plot-group');
   document.body.appendChild(groupDiv);
 
   for(let i=0; i<data.length; i++) {
