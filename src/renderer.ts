@@ -218,6 +218,8 @@ export class Renderer {
     if(options.reverseYRange) {
       this.plotlyLayout.yaxis.autorange = 'reversed';
       this.plotlyLayout.xaxis.side = 'top';
+      this.plotlyLayout.xaxis.ticklen = 0;
+      this.plotlyLayout.yaxis.ticklen = 0;
     }
     Plotly.newPlot(this.div, traces, this.plotlyLayout, {staticPlot:true});
   }
