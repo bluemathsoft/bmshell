@@ -11,7 +11,7 @@ let A = new bluemath.common.NDArray([
   [6,1]
 ]);
 bmlog('A',A.toString());
-bmplot(A);
+plot(A);
 `;
 
 const identity_and_multiplication =
@@ -57,11 +57,11 @@ let A = new NDArray([
 ],{datatype:'i32'});
 
 bmlog('A');
-bmplot(A,{type:'matrix'});
+plot(A,{type:'matrix'});
 bmlog('Upper Triangular');
-bmplot(triu(A),{type:'matrix'});
+plot(triu(A),{type:'matrix'});
 bmlog('Lower Triangular');
-bmplot(tril(A),{type:'matrix'});
+plot(tril(A),{type:'matrix'});
 `
 
 const ndarray_arithmatic =
@@ -105,7 +105,7 @@ let {arr} = bluemath.common;
 bmlog('Bezier Curve');
 let bezcrv = new bluemath.geom.nurbs.BezierCurve(
     2,arr([[10,10],[30,25],[10,50]]));
-bmplot(bezcrv);
+plot(bezcrv);
 
 bmlog('BSpline Curve');
 let bcrv = new bluemath.geom.nurbs.BSplineCurve(
@@ -122,7 +122,7 @@ let bcrv = new bluemath.geom.nurbs.BSplineCurve(
       ]),
     arr([0, 0, 0, 0.2, 0.4, 0.6, 0.8, 0.8, 1, 1, 1])
 );
-bmplot(bcrv);
+plot(bcrv);
 `
 
 let BMSHELL_EXAMPLES = {

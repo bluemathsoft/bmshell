@@ -205,7 +205,7 @@ export class Renderer {
   }
 
   render2D(traces:any,options?:any) {
-    if(options.range) {
+    if(options && options.range) {
       this.plotlyLayout.xaxis.range = options.range.x;
       this.plotlyLayout.yaxis.range = options.range.y;
       if(this.plotlyLayout.xaxis2) {
@@ -215,7 +215,7 @@ export class Renderer {
         this.plotlyLayout.yaxis2.range = options.range.y;
       }
     }
-    if(options.reverseYRange) {
+    if(options && options.reverseYRange) {
       this.plotlyLayout.yaxis.autorange = 'reversed';
       this.plotlyLayout.xaxis.side = 'top';
       this.plotlyLayout.xaxis.ticklen = 0;
