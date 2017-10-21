@@ -98,13 +98,14 @@ function plot2DArray(object:bluemath.common.NDArray, options?:any) {
       type : type,
       mode : mode
     };
+    rndr.render2D([trace]);
   } else if(type === 'heatmap') {
     trace = {
       z : object.toArray(),
       type : type
     };
+    rndr.render2D([trace],{reverseYRange:true});
   }
-  rndr.render2D([trace]);
 }
 
 (<any>window).bmplot = function (...args:any[]) {

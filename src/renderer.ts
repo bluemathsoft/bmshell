@@ -204,16 +204,20 @@ export class Renderer {
     }
   }
 
-  render2D(traces:any,range?:{x:number[],y:number[]}) {
-    if(range) {
-      this.plotlyLayout.xaxis.range = range.x;
-      this.plotlyLayout.yaxis.range = range.y;
+  render2D(traces:any,options?:any) {
+    if(options.range) {
+      this.plotlyLayout.xaxis.range = options.range.x;
+      this.plotlyLayout.yaxis.range = options.range.y;
       if(this.plotlyLayout.xaxis2) {
-        this.plotlyLayout.xaxis2.range = range.x;
+        this.plotlyLayout.xaxis2.range = options.range.x;
       }
       if(this.plotlyLayout.yaxis2) {
-        this.plotlyLayout.yaxis2.range = range.y;
+        this.plotlyLayout.yaxis2.range = options.range.y;
       }
+    }
+    if(options.reverseYRange) {
+      this.plotlyLayout.yaxis.autorange = 'reversed';
+      this.plotlyLayout.xaxis.side = 'top';
     }
     Plotly.newPlot(this.div, traces, this.plotlyLayout, {staticPlot:true});
   }
