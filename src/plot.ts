@@ -106,7 +106,8 @@ function plotGeometry(geometry:GeometryType, spec?:PlotSpec) {
   div.classList.add('bm-plot');
   let width = (spec && spec.width) || 300;
   let height = (spec && spec.height) || 200;
-  let rndr = new Renderer(div,'plotly',{width,height});
+  let rndr = new Renderer(
+    div, is3D(geometry) ? 'threejs' : 'plotly',{width,height});
   new GeometryAdapter(geometry,rndr);
   return div;
 }
@@ -118,6 +119,18 @@ function isGeometry(object:any) {
     object instanceof bluemath.geom.nurbs.BezierSurface ||
     object instanceof bluemath.geom.nurbs.BSplineSurface
   );
+}
+
+function is3D(object:PlotData) {
+  if(isGeometry(object)) {
+    return (<any>object).dimension === 3;
+  } else if(Array.isArray(object)) {
+    return Array.isArray(object[0]) && object[0].length === 3;
+  } else if(object instanceof NDArray) {
+    return (<bluemath.common.NDArray>object).shape.length === 2 &&
+      (<bluemath.common.NDArray>object).shape[1] === 3;
+  }
+  return false;
 }
 
 export function plot(data:PlotData|PlotData[], spec?:PlotSpec|PlotSpec[]) {

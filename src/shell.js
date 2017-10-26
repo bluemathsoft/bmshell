@@ -35,6 +35,23 @@ function nameToKey(name) {
 let preambleTypeDeclaration =
 `
 declare function log(...args:any[]) {}
+declare interface PlotSpec {
+  data? : any;
+  type? : 'line'|'points'|'matrix';
+  width? : number;
+  height? : number;
+  title? : string;
+  interactive? : boolean;
+}
+
+declare type PlotData = Array<any> |
+  bluemath.common.NDArray |
+  bluemath.geom.nurbs.BezierCurve |
+  bluemath.geom.nurbs.BSplineCurve |
+  bluemath.geom.nurbs.BezierSurface |
+  bluemath.geom.nurbs.BSplineSurface;
+
+declare function plot(data:PlotData|PlotData[], spec?:PlotSpec|PlotSpec[]);
 `;
 
 // Setup Monaco editor

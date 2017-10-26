@@ -12,7 +12,7 @@
     "deploy-shell": "cp index.html runtime.html ../bluemathsoft.github.io/shell/ && cp -r build/* ../bluemathsoft.github.io/shell/build/ && cp -r ext/* ../bluemathsoft.github.io/shell/ext/ && cp -r fonts/* ../bluemathsoft.github.io/shell/fonts/ && cp -r src/* ../bluemathsoft.github.io/shell/src/ "
   },
   "author": "Jayesh Salvi",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "dependencies": {
     "bluemath": "^0.4.3",
     "monaco-editor": "^0.10.1",
