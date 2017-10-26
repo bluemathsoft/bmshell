@@ -77,6 +77,7 @@ function makeAxes() {
 
 interface GL {
   scene : THREE.Scene;
+  canvas : HTMLCanvasElement;
   glrndr : THREE.WebGLRenderer;
   camera : THREE.Camera;
   orbitControls : OrbitControls;
@@ -122,6 +123,7 @@ function makeGL(canvas3:HTMLCanvasElement,width:number,height:number) : GL {
   return {
     cpointSprite : THREE.ImageUtils.loadTexture( "cpoint.png" ),
     scene : scene,
+    canvas : canvas3,
     glrndr : renderer,
     camera : camera,
     orbitControls : orbitControls
@@ -225,13 +227,13 @@ export class Renderer {
     Plotly.newPlot(this.div, traces, this.plotlyLayout, {staticPlot:true});
   }
 
-  render3D(arrtess:TessFormat3D[]) {
+  render3D(arrtess:TessFormat3D[], options?:any) {
     for(let tess of arrtess) {
-      this.render3DSingle(tess);
+      this.render3DSingle(tess,options);
     }
   }
 
-  render3DSingle(tess:TessFormat3D) {
+  render3DSingle(tess:TessFormat3D,options?:any) {
 
     let gl:GL;
     if(tess.targetGL && tess.targetGL === 2) {
@@ -239,6 +241,17 @@ export class Renderer {
       gl = this.gl2!;
     } else {
       gl = this.gl1;
+    }
+
+    if(options && options.title) {
+      let titleText = document.createElement('div');
+      titleText.style.width = this.width+'px';
+      titleText.style.textAlign = 'center';
+      titleText.style.fontFamily = 'arial';
+      titleText.style.marginBottom = '3px';
+      titleText.style.marginTop = '3px';
+      titleText.textContent = options.title;
+      this.div.insertBefore(titleText,gl.canvas);
     }
 
     // Add geometry mesh

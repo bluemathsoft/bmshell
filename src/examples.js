@@ -116,15 +116,17 @@ log('A[null,2] = ',A.get(null,2));
 log('A[:2,1:3] = ',A.get(':2','1:3'));
 `
 
-const curves =
+const nurbs =
 `
 let {arr} = bluemath.common;
+let {
+  BezierCurve,BSplineCurve,BezierSurface,BSplineSurface
+} = bluemath.geom.nurbs;
 
-let bezcrv = new bluemath.geom.nurbs.BezierCurve(
+let bezcrv = new BezierCurve(
     2,arr([[10,10],[30,25],[10,50]]));
-plot(bezcrv,{title:'Bezier Curve'});
 
-let bcrv = new bluemath.geom.nurbs.BSplineCurve(
+let bcrv = new BSplineCurve(
     2,
     arr([
         [-5, -5],
@@ -138,9 +140,21 @@ let bcrv = new bluemath.geom.nurbs.BSplineCurve(
       ]),
     arr([0, 0, 0, 0.2, 0.4, 0.6, 0.8, 0.8, 1, 1, 1])
 );
-plot(bcrv,{title:'BSpline Curve'});
 
-let bsrf = new bluemath.geom.nurbs.BSplineSurface(
+plot([bezcrv,bcrv],
+    [{title:'Bezier Curve'}, {title:'BSpline Curve'}]);
+
+let bezsrf = new BezierSurface(
+    3, 2,
+    [
+      [[-1,-1,0],[0,-1,0],[1,-1,0]],
+      [[-1,0,1],[0,0,2],[1,0,-1]],
+      [[-1,2,0],[0,2,0],[1,2,0]],
+      [[-1,4,0],[0,4,0],[1,4,0]]
+    ]
+);
+
+let bsrf = new BSplineSurface(
   3, 2,
   [0,0,0,0,0.5,0.75,1,1,1,1],
   [0,0,0,0.5,1,1,1],
@@ -153,7 +167,10 @@ let bsrf = new bluemath.geom.nurbs.BSplineSurface(
     [ [-1,5,0],[0,5,0],[1,5,-1],[2,5,-1] ]
   ]
 );
-plot(bsrf);
+plot([bezsrf,bsrf],[
+  {title:'Bezier Surface'},
+  {title:'BSpline Surface'}
+]);
 `
 
 let BMSHELL_EXAMPLES = {
@@ -163,5 +180,5 @@ let BMSHELL_EXAMPLES = {
   'Identity and Multiplication' : identity_and_multiplication,
   'Matrix Determinant' : determinant,
   'Triangular Matrices' : triangular_matrices,
-  'Curves' : curves
+  'NURBS' : nurbs 
 };

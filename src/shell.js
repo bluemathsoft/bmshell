@@ -107,7 +107,7 @@ require(['vs/editor/editor.main'], function() {
   // Populate with first example
   let urlmatch = /#([\d\w-]+)$/.exec(window.location.href);
   let selkey;
-  if(urlmatch) {
+  if(urlmatch && exmMap.hasOwnProperty(urlmatch[1])) {
     selkey = urlmatch[1];
   } else {
     selkey = nameToKey(exmNames[0]);

@@ -123,10 +123,11 @@ export class GeometryAdapter {
       let [nrows,ncols] = (<nurbs.BSplineSurface>geom).cpoints.shape;
       let cpointsArr = (<nurbs.BSplineSurface>geom)
         .cpoints.clone().reshape([nrows*ncols,3]);
+      let o = options || {};
       this.rndr.render3D([{
         mesh:(<nurbs.BSplineSurface>geom).tessellate(),
         points:cpointsArr.toArray()
-      }]);
+      }], o);
 
     }
   }
