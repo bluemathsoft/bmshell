@@ -77,7 +77,7 @@ function genBSplinePlotTraces(bcrv:nurbs.BSplineCurve,axes=['x1','y1']) {
 
 export class GeometryAdapter {
 
-  constructor(public geom:any, public rndr:Renderer)
+  constructor(public geom:any, public rndr:Renderer, options?:any)
   {
     if(geom instanceof nurbs.BezierCurve) {
 
@@ -88,8 +88,10 @@ export class GeometryAdapter {
           points : (<nurbs.BezierCurve>geom).cpoints.toArray()
         }]);
       } else {
+        let o = options || {};
+        o.range = computeRange([geom]);
         this.rndr.render2D(
-          genBezierPlotTraces(<nurbs.BezierCurve>geom),computeRange([geom]));
+          genBezierPlotTraces(<nurbs.BezierCurve>geom), o);
       }
 
     } else if(
@@ -105,8 +107,10 @@ export class GeometryAdapter {
           points : (<nurbs.BSplineCurve>geom).cpoints.toArray()
         }]);
       } else {
+        let o = options || {};
+        o.range = computeRange([geom]);
         this.rndr.render2D(
-          genBSplinePlotTraces(<nurbs.BSplineCurve>geom), computeRange([geom]));
+          genBSplinePlotTraces(<nurbs.BSplineCurve>geom), o);
       }
 
     } else if(

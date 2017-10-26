@@ -120,12 +120,10 @@ const curves =
 `
 let {arr} = bluemath.common;
 
-log('Bezier Curve');
 let bezcrv = new bluemath.geom.nurbs.BezierCurve(
     2,arr([[10,10],[30,25],[10,50]]));
-plot(bezcrv);
+plot(bezcrv,{title:'Bezier Curve'});
 
-log('BSpline Curve');
 let bcrv = new bluemath.geom.nurbs.BSplineCurve(
     2,
     arr([
@@ -140,7 +138,7 @@ let bcrv = new bluemath.geom.nurbs.BSplineCurve(
       ]),
     arr([0, 0, 0, 0.2, 0.4, 0.6, 0.8, 0.8, 1, 1, 1])
 );
-plot(bcrv);
+plot(bcrv,{title:'BSpline Curve'});
 
 let bsrf = new bluemath.geom.nurbs.BSplineSurface(
   3, 2,

@@ -108,7 +108,9 @@ function plotGeometry(geometry:GeometryType, spec?:PlotSpec) {
   let height = (spec && spec.height) || 200;
   let rndr = new Renderer(
     div, is3D(geometry) ? 'threejs' : 'plotly',{width,height});
-  new GeometryAdapter(geometry,rndr);
+  new GeometryAdapter(geometry,rndr,{
+    title : spec ? spec.title : undefined
+  });
   return div;
 }
 
