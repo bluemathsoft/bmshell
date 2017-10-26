@@ -24,6 +24,9 @@ import {plot} from './plot'
 (<any>window).console = {
   log : function(...args:any[]) {
     let msg:string = args.map(a => new String(a)).join('');
+    if(/^THREE.WebGLRenderer\d+/.test(msg)) {
+      return; // Ignore typical three.js init message
+    }
     let el = document.createElement('p');
     el.textContent = msg;
     document.body.appendChild(el);
@@ -37,6 +40,9 @@ import {plot} from './plot'
   },
   warn : function(...args:any[]) {
     let msg:string = args.map(a => new String(a)).join('');
+    if (/THREE.ImageUtils.loadTexture has been deprecated/.test(msg)) {
+      return; // Ignore three.js loadTexture warning
+    }
     let el = document.createElement('p');
     el.style.color = '#ff7700';
     el.textContent = msg;
