@@ -10,7 +10,7 @@ let A = new bluemath.common.NDArray([
   [5,8],
   [6,1]
 ]);
-bmlog('A',A.toString());
+log('A',A.toString());
 plot(A);
 `;
 
@@ -20,11 +20,11 @@ const bm = bluemath;
 let {eye,mul} = bm.common;
 
 let A = eye(3,'i32');
-bmlog('Identity',A);
+log('Identity',A);
 let B = mul(A,5);
 let C = mul(A,2);
-bmlog('B',B);
-bmlog('C',C);
+log('B',B);
+log('C',C);
 `;
 
 const determinant = 
@@ -38,10 +38,10 @@ let A = new NDArray([
     [1,3,5]
 ]);
 
-bmlog('A',A);
-bmlog('Determinant = ',det(A));
+log('A',A);
+log('Determinant = ',det(A));
 let [sign,logdet] = slogdet(A);
-bmlog('Signed Log of Determinant = ',sign*logdet);
+log('Signed Log of Determinant = ',sign*logdet);
 `;
 
 const triangular_matrices = 
@@ -74,12 +74,12 @@ let A = new NDArray([
     [1,9]
 ],{datatype:'i32'});
 let B = eye(2,'i32');
-bmlog('A',A);
-bmlog('B',B);
-bmlog('A+B',add(A,B));
-bmlog('A-B',sub(A,B));
-bmlog('3*A',mul(3,A));
-bmlog('A/2',div(A,2));
+log('A',A);
+log('B',B);
+log('A+B',add(A,B));
+log('A-B',sub(A,B));
+log('3*A',mul(3,A));
+log('A/2',div(A,2));
 `
 
 const ndarray_slicing =
@@ -92,23 +92,23 @@ let A = new NDArray([
     [9,10,11,12],
     [13,14,15,16]
 ],{datatype:'i32'});
-bmlog('A',A);
-bmlog('A[:,1] = ',A.get(':',1));
-bmlog('A[1,:] = ',A.get(1,':'));
-bmlog('A[null,2] = ',A.get(null,2));
-bmlog('A[:2,1:3] = ',A.get(':2','1:3'));
+log('A',A);
+log('A[:,1] = ',A.get(':',1));
+log('A[1,:] = ',A.get(1,':'));
+log('A[null,2] = ',A.get(null,2));
+log('A[:2,1:3] = ',A.get(':2','1:3'));
 `
 
 const curves =
 `
 let {arr} = bluemath.common;
 
-bmlog('Bezier Curve');
+log('Bezier Curve');
 let bezcrv = new bluemath.geom.nurbs.BezierCurve(
     2,arr([[10,10],[30,25],[10,50]]));
 plot(bezcrv);
 
-bmlog('BSpline Curve');
+log('BSpline Curve');
 let bcrv = new bluemath.geom.nurbs.BSplineCurve(
     2,
     arr([

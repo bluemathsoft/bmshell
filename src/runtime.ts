@@ -45,7 +45,7 @@ import {plot} from './plot'
   }
 };
 
-(<any>window).bmlog = function (...args:any[]) {
+(<any>window).log = function (...args:any[]) {
   let s = '';
   for(let arg of args) {
     s += arg.toString().replace(/\n/g,'<br/>').replace(/\s/g,'&nbsp;');

@@ -20,7 +20,7 @@ function nameToKey(name) {
   let preambleTypeDeclaration =
   `
   declare function bmlog(...args:any[]) {}
-  `
+  `;
 
   // Setup Monaco editor
   require.config({ paths: { 'vs': './ext/monaco-editor/min/vs' }});
